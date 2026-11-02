@@ -1,0 +1,68 @@
+name: keystone
+
+# Runs the database, the API and the web app on your machine. Every value comes from .env
+# (copy .env.example to .env first). Nothing secret lives in this file.
+
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-keystone}
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env. Letters and digits only, for example: openssl rand -hex 16}"
+      POSTGRES_DB: ${POSTGRES_DB:-keystone}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      # Bound to your own machine only. Change DB_PORT if 5432 is already taken.
+      - "127.0.0.1:${DB_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-keystone} -d ${POSTGRES_DB:-keystone}"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build: ./api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Compose always uses its own database. To run against a hosted one, run the API
+      # outside Compose with DATABASE_URL set (see the README).
+      DATABASE_URL: postgres://${POSTGRES_USER:-keystone}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-keystone}?sslmode=disable
+      JWT_SECRET: "${JWT_SECRET:?Set JWT_SECRET in .env. Generate one with: openssl rand -hex 32}"
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:5173}
+      KEYSTONE_TEAMS: ${KEYSTONE_TEAMS:-}
+      KEYSTONE_READ_ONLY: ${KEYSTONE_READ_ONLY:-false}
+      KEYSTONE_ANTHROPIC_KEY: ${KEYSTONE_ANTHROPIC_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-}
+      VOYAGE_API_KEY: ${VOYAGE_API_KEY:-}
+      VOYAGE_BASE_URL: ${VOYAGE_BASE_URL:-}
+      VOYAGE_MODEL: ${VOYAGE_MODEL:-}
+      KEYSTONE_RELEVANCE_FLOOR: ${KEYSTONE_RELEVANCE_FLOOR:-}
+      KEYSTONE_BLOCK_MARGIN: ${KEYSTONE_BLOCK_MARGIN:-}
+      KEYSTONE_WARM_QUESTIONS: ${KEYSTONE_WARM_QUESTIONS:-}
+      KEYSTONE_ASKS_PER_IP: ${KEYSTONE_ASKS_PER_IP:-}
+      KEYSTONE_DAILY_ASK_CAP: ${KEYSTONE_DAILY_ASK_CAP:-}
+      KEYSTONE_PROXY_HOPS: ${KEYSTONE_PROXY_HOPS:-}
+    ports:
+      # The left number is the port on your machine. Change API_PORT if 8080 is taken.
+      - "${API_PORT:-8080}:8080"
+
+  web:
+    build: ./web
+    depends_on:
+      - api
+    environment:
+      # The browser calls this URL directly, so it is the port on your machine, not the
+      # api service's name on the Docker network.
+      VITE_API_URL: http://localhost:${API_PORT:-8080}
+    volumes:
+      - ./web/src:/app/src
+      - ./web/index.html:/app/index.html
+    ports:
+      - "5173:5173"
+
+volumes:
+  dbdata:

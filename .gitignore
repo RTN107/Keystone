@@ -1,0 +1,18 @@
+# secrets and local config
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# build output
+api/bin/
+api/keystone
+web/node_modules/
+web/dist/
+*.log
+
+# editor and OS
+.DS_Store
+.vscode/
+.idea/
