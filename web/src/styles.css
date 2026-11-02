@@ -1,0 +1,204 @@
+/* Keystone interface. Light only. Colours are the working palette from NOTES.md; every
+   pair that ships is measured by scripts/contrast.mjs. */
+:root {
+  color-scheme: light;
+  --wash: #edf0f2;
+  --sheet: #fbfcfc;
+  --ink: #17263a;
+  --ink-muted: #52606f;
+  --signal: #00f0ff; /* electric blue: ONLY ever a fill. Never type, never a line, never a ring (1.23:1 on the wash). */
+  --ochre: #8a5100;
+  --rule: #c9d1d8; /* decorative rules */
+  --field: #7a8794; /* the edge of a control: 3:1 against wash and sheet */
+  --font-system: "Hanken Grotesk Variable", system-ui, sans-serif;
+  --font-doc: "Literata Variable", Georgia, serif;
+  --measure: 34rem; /* the answer text: 70 characters a line at most, in Literata at 17px (measured) */
+  --margin-w: 17rem; /* the width of the sources margin */
+  --socket: #dadee1; /* ink at 9% over the wash, written out: a keyframe from a color-mix() to a hex breaks in Chrome */
+  --gutter: 2.25rem;
+  --frame: calc(var(--measure) + var(--gutter) + var(--margin-w) + 2.5rem); /* header, Ask and admin share one left edge */
+  --lift: 0 0 0 1px rgb(23 38 58 / 0.07), 0 1px 2px rgb(23 38 58 / 0.04), 0 8px 20px -10px rgb(23 38 58 / 0.14); /* elevation: layered, transparent */
+}
+/* The page is a reading surface. On large screens the whole system scales, so it is not dwarfed. */
+@media (min-width: 1536px) {
+  html {
+    font-size: 112.5%;
+  }
+}
+@media (min-width: 1920px) {
+  html {
+    font-size: 125%;
+  }
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+}
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  background: var(--wash);
+  color: var(--ink);
+  font-family: var(--font-system);
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.skip {
+  position: absolute;
+  inset-block-start: 0.5rem;
+  inset-inline-start: 0.5rem;
+  z-index: 20;
+  padding: 0.5rem 0.9rem;
+  background: var(--ink);
+  color: var(--sheet);
+  border-radius: 0.4rem;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip:focus {
+  transform: none;
+}
+
+/* Buttons: one quiet primary (ink), and text buttons. Electric blue is only ever a fill. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-block-size: 2.5rem;
+  padding: 0 1.1rem;
+  border: 1px solid var(--ink);
+  border-radius: 0.5rem;
+  background: var(--ink);
+  color: var(--sheet);
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:hover:not(:disabled) {
+  background: #24374f;
+  border-color: #24374f;
+}
+.btn:disabled {
+  background: var(--rule);
+  border-color: var(--rule);
+  color: var(--ink-muted);
+  cursor: not-allowed;
+}
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn {
+    transition: background-color 120ms ease-out, border-color 120ms ease-out, transform 150ms ease-out;
+  }
+}
+.btn-quiet {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--field);
+}
+.btn-quiet:hover:not(:disabled) {
+  background: rgb(23 38 58 / 0.05);
+  border-color: var(--ink);
+}
+.link-btn {
+  all: unset;
+  cursor: pointer;
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.4rem;
+}
+.link-btn:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.link-btn {
+  min-block-size: 1.75rem;
+}
+/* Fingers need bigger targets than pointers. */
+@media (pointer: coarse) {
+  .btn {
+    min-block-size: 2.75rem;
+  }
+  .link-btn {
+    min-block-size: 2.75rem;
+    padding-inline: 0.7rem;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+.link-btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+/* Forms */
+.field {
+  display: block;
+  margin-block-end: 1.1rem;
+}
+.field > span {
+  display: block;
+  margin-block-end: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.input {
+  display: block;
+  inline-size: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--field);
+  border-radius: 0.5rem;
+  background: var(--sheet);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .input {
+    transition: border-color 120ms ease-out;
+  }
+}
+.input:hover {
+  border-color: var(--ink);
+}
+.input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 0;
+  border-color: var(--ink);
+}

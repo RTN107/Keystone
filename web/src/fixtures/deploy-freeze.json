@@ -1,0 +1,51 @@
+{
+ "question": "When am I not allowed to deploy to production?",
+ "tokens": [
+  "You",
+  " may",
+  " not deploy to production at",
+  " these",
+  " times [1]:\n\n-",
+  " Fridays after 3pm",
+  " IST\n- During Deep",
+  "avali week\n- In the week",
+  " around Makara Sankran",
+  "ti\n- From 25 March",
+  " to 5 April (the financ",
+  "ial year end)\n- In",
+  "side a client's declared free",
+  "ze window\n\nThe only exception is",
+  " an emergency fix for a",
+  " P1, which needs the del",
+  "ivery lead's appro",
+  "val in writing [1].",
+  " Client freeze windows are",
+  " recorded on the client record,",
+  " so check it before you plan a",
+  " release [1].\n\nOutside",
+  " those peri",
+  "ods, chang",
+  "es are",
+  " all",
+  "owed, but they still",
+  " need a peer review and a r",
+  "ollback plan before de",
+  "ployment [1]."
+ ],
+ "done": {
+  "answer": "You may not deploy to production at these times [1]:\n\n- Fridays after 3pm IST\n- During Deepavali week\n- In the week around Makara Sankranti\n- From 25 March to 5 April (the financial year end)\n- Inside a client's declared freeze window\n\nThe only exception is an emergency fix for a P1, which needs the delivery lead's approval in writing [1]. Client freeze windows are recorded on the client record, so check it before you plan a release [1].\n\nOutside those periods, changes are allowed, but they still need a peer review and a rollback plan before deployment [1].",
+  "citations": [
+   {
+    "n": 1,
+    "chunk_id": 70,
+    "document_id": 3,
+    "document_title": "Delivery and Escalation SOP",
+    "passage": "## Production changes and freezes\n\nNo production changes are made on Fridays after 3pm IST, during Deepavali week, in the week around Makara Sankranti, from 25 March to 5 April (the financial year end), or inside a client's declared freeze window. The only exception is an emergency fix for a P1, which needs the delivery lead's approval in writing. All other changes need a peer review and a rollback plan before they are deployed. Client freeze windows are recorded on the client record, so check it before you plan a release.",
+    "char_start": 9095,
+    "char_end": 9623
+   }
+  ],
+  "outcome": "answered",
+  "truncated": false
+ }
+}

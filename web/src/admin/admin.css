@@ -1,0 +1,593 @@
+/* Admin screens. Quiet on purpose: rules for structure, no cards except the two panels that are actions
+   (the upload and the access grant), and the same tokens as the rest of the product. */
+.admin {
+  max-inline-size: var(--frame);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+.admin .admin-nav {
+  border-block-end: 1px solid var(--rule);
+}
+.admin .admin-nav ul {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+}
+.admin .admin-nav a {
+  display: block;
+  padding: 0.85rem 0.75rem 0.8rem;
+  border-block-end: 2px solid transparent;
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.admin .admin-nav a:hover {
+  color: var(--ink);
+}
+.admin .admin-nav a[aria-current="page"] {
+  color: var(--ink);
+  border-block-end-color: var(--ink);
+}
+.admin .admin-nav a:focus-visible,
+.admin .row-link:focus-visible,
+.admin .back a:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -2px;
+  border-radius: 0.25rem;
+}
+@media (pointer: coarse) {
+  .admin .admin-nav a {
+    padding-block: 1.05rem 1rem;
+  }
+}
+.admin .admin-main {
+  padding-block: 2rem 5rem;
+}
+.admin .admin-main:focus {
+  outline: none;
+}
+.admin .page-head {
+  margin-block-end: 1.75rem;
+}
+.admin .page-head h1 {
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+.admin .page-head p {
+  margin-block-start: 0.35rem;
+  max-inline-size: 42rem;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+.admin .page-head .subject {
+  color: var(--ink);
+}
+.admin .back {
+  margin-block-end: 0.9rem;
+  font-size: 0.875rem;
+}
+.admin .back a {
+  color: var(--ink-muted);
+  text-underline-offset: 0.2em;
+}
+.admin .back a::before {
+  content: "\2190\00a0"; /* a left arrow: the same character everywhere, no icon set needed */
+}
+.admin .back a:hover {
+  color: var(--ink);
+}
+
+.admin .block {
+  margin-block-end: 2.5rem;
+}
+.admin .block-title {
+  margin-block-end: 0.9rem;
+  font-size: 1rem;
+  font-weight: 650;
+}
+.admin .quiet {
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+}
+.admin .problem-line {
+  max-inline-size: 42rem;
+  margin-block: 0.5rem 1rem;
+  padding-inline-start: 0.8rem;
+  border-inline-start: 2px solid var(--ochre);
+  text-wrap: pretty;
+}
+.admin .note-box {
+  max-inline-size: 42rem;
+  margin-block-end: 2rem;
+  padding-inline-start: 0.8rem;
+  border-inline-start: 2px solid var(--rule);
+  color: var(--ink-muted);
+}
+
+/* Forms */
+.admin .plain {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-inline-size: 0;
+}
+.admin .plain legend {
+  padding: 0;
+  margin-block-end: 0.35rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.admin .hint {
+  display: block;
+  margin-block-start: 0.3rem;
+  color: var(--ink-muted);
+  font-size: 0.8125rem;
+}
+.admin .optional {
+  margin-inline-start: 0.35rem;
+  color: var(--ink-muted);
+  font-size: 0.8125rem;
+  font-style: normal;
+  font-weight: 400;
+}
+.admin select.input {
+  appearance: auto;
+  font: inherit;
+  font-size: 1rem; /* 16px keeps iOS from zooming the page on focus */
+}
+.admin .input {
+  font-size: 1rem;
+}
+.admin .input.file {
+  padding: 0.4rem;
+}
+.admin .input.file::file-selector-button {
+  margin-inline-end: 0.75rem;
+  padding: 0.35rem 0.8rem;
+  border: 1px solid var(--field);
+  border-radius: 0.3rem;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.admin .upload,
+.admin .grant,
+.admin .add {
+  max-inline-size: 34rem;
+}
+.admin .upload,
+.admin .grant {
+  padding: 1.4rem 1.5rem 1.5rem;
+  border-radius: 0.75rem;
+  background: var(--sheet);
+  box-shadow: var(--lift);
+}
+.admin .choices {
+  display: grid;
+  gap: 0.1rem;
+  margin-block-end: 1.25rem;
+}
+.admin .choice {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-block-size: 2.25rem;
+  cursor: pointer;
+}
+.admin .choice input {
+  inline-size: 1.15rem;
+  block-size: 1.15rem;
+  margin: 0;
+  accent-color: var(--signal);
+}
+/* A checked box is a blue fill (1.37:1 on the sheet), so its edge is ink: structure is never blue. */
+.admin .choice input[type="checkbox"]:checked {
+  box-shadow: 0 0 0 1.5px var(--ink);
+  border-radius: 0.2rem;
+}
+.admin .choice input[type="radio"]:checked {
+  box-shadow: 0 0 0 1.5px var(--ink);
+  border-radius: 50%;
+}
+@media (pointer: coarse) {
+  .admin .choice {
+    min-block-size: 2.75rem;
+  }
+}
+.admin .actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+}
+.admin .status {
+  margin-block-start: 0.9rem;
+}
+.admin .result {
+  display: grid;
+  gap: 0.15rem;
+  max-inline-size: 42rem;
+  margin-block-start: 1rem;
+  padding-inline-start: 0.9rem;
+  border-inline-start: 2px solid var(--ink);
+}
+.admin .result strong {
+  font-size: 1.375rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.admin .result span {
+  color: var(--ink-muted);
+}
+.admin .result:focus {
+  outline: none;
+}
+.admin .live:empty {
+  display: none;
+}
+.admin .live .result {
+  margin-block: 0 1.75rem;
+}
+
+/* Tables: rules, not boxes. They stack into labelled rows on a narrow screen. */
+.admin .table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+.admin .table th,
+.admin .table td {
+  padding: 0.8rem 0.75rem 0.8rem 0;
+  border-block-start: 1px solid var(--rule);
+  text-align: start;
+  vertical-align: top;
+}
+.admin .table thead th {
+  padding-block: 0 0.5rem;
+  border-block-start: 0;
+  border-block-end: 1px solid var(--field);
+  color: var(--ink-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.admin .table tbody th {
+  font-weight: 400;
+}
+.admin .table .num {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+  padding-inline-end: 1.5rem;
+}
+.admin .table .act {
+  text-align: end;
+  white-space: nowrap;
+  padding-inline-end: 0;
+}
+.admin .nowrap {
+  white-space: nowrap;
+}
+.admin .doc-title {
+  display: block;
+  font-weight: 600;
+}
+.admin .doc-file {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+.admin .subject + .doc-file {
+  display: inline;
+}
+.admin .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.admin .tag {
+  display: inline-block;
+  padding: 0.1rem 0.55rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--sheet);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.admin .tag.is-extended {
+  border-color: var(--ink);
+}
+.admin .tag-note {
+  color: var(--ink-muted);
+}
+.admin .row-link {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--field);
+  border-radius: 0.4rem;
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.admin .row-link:hover {
+  border-color: var(--ink);
+  background: rgb(23 38 58 / 0.05);
+}
+@media (pointer: coarse) {
+  .admin .row-link {
+    padding-block: 0.7rem;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* A document that has just been added lands among the others: its row starts tinted and settles. It
+     happens once per upload and says which row is new. */
+  .admin .table tr.is-new {
+    animation: admin-landed 1800ms ease-out;
+  }
+}
+@keyframes admin-landed {
+  from {
+    background: color-mix(in srgb, var(--signal) 25%, transparent);
+  }
+}
+@media (max-width: 46rem) {
+  .admin .table thead {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .admin .table,
+.admin .table tbody,
+.admin .table tr,
+.admin .table th,
+.admin .table td {
+    display: block;
+  }
+  .admin .table tr {
+    padding-block: 0.8rem;
+    border-block-start: 1px solid var(--rule);
+  }
+  .admin .table th,
+.admin .table td {
+    padding: 0.15rem 0;
+    border: 0;
+    text-align: start;
+  }
+  .admin .table td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .admin .table .num {
+    padding-inline-end: 0;
+    text-align: start;
+  }
+  .admin .table .act {
+    padding-block-start: 0.5rem;
+    text-align: start;
+  }
+}
+
+/* Access extension */
+.admin .holders {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.admin .holders li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+}
+.admin .holder-note {
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+}
+.admin .consequence {
+  max-inline-size: 30rem;
+  margin-block-end: 1.25rem;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.admin .grant .btn {
+  min-block-size: 2.75rem;
+}
+
+/* Query log filters */
+.admin .filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0 1.25rem;
+  margin-block-end: 1.25rem;
+}
+.admin .filters .field {
+  inline-size: 14rem;
+  max-inline-size: 100%;
+}
+.admin .seg {
+  margin-block-end: 1.1rem;
+}
+.admin .seg {
+  display: flex;
+  flex-wrap: wrap;
+}
+.admin .seg legend {
+  inline-size: 100%;
+}
+.admin .seg-item {
+  position: relative;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--field);
+  margin-inline-start: -1px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.admin .seg-item:first-of-type {
+  margin-inline-start: 0;
+  border-start-start-radius: 0.4rem;
+  border-end-start-radius: 0.4rem;
+}
+.admin .seg-item:last-of-type {
+  border-start-end-radius: 0.4rem;
+  border-end-end-radius: 0.4rem;
+}
+.admin .seg-item input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.admin .seg-item.is-on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--sheet);
+  z-index: 1;
+}
+.admin .seg-item:has(:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  z-index: 2;
+}
+@media (pointer: coarse) {
+  .admin .seg-item {
+    padding-block: 0.75rem;
+  }
+}
+.admin .outcome {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.admin .outcome.is-answered {
+  color: var(--ink);
+}
+.admin .outcome.is-blocked {
+  color: var(--ochre);
+}
+.admin .outcome.is-no_match {
+  color: var(--ink-muted);
+}
+.admin .question-cell {
+  max-inline-size: 32rem;
+  overflow-wrap: anywhere;
+}
+.admin .answer-detail {
+  margin-block-start: 0.35rem;
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+}
+.admin .answer-detail summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.admin .answer-detail summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 0.2rem;
+}
+.admin .answer-detail p {
+  margin-block-start: 0.4rem;
+  max-inline-size: 36rem;
+  color: var(--ink);
+  font-family: var(--font-doc);
+  line-height: 1.55;
+  white-space: pre-line;
+}
+.admin .answer-detail p.doc-file {
+  font-family: var(--font-system);
+  color: var(--ink-muted);
+}
+.admin .more {
+  margin-block-start: 1.25rem;
+}
+
+/* People */
+.admin .people {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0 2rem;
+  max-inline-size: 48rem;
+}
+.admin .members {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.admin .num-tag {
+  display: inline-block;
+  min-inline-size: 4.5rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.875rem;
+}
+@media (max-width: 719px) {
+  .admin {
+    padding-inline: 1rem;
+  }
+  .admin .upload,
+.admin .grant {
+    padding-inline: 1.1rem;
+  }
+}
+
+/* Fingers: the back link and the answer disclosure are the two short controls on these screens. */
+@media (pointer: coarse) {
+  .admin .back a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+  .admin .answer-detail summary {
+    display: flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+  .admin .holders .link-btn {
+    min-block-size: 2.75rem;
+  }
+}
+
+/* Narrow screens: the four tabs wrap instead of scrolling, so none is ever half hidden. */
+@media (max-width: 30rem) {
+  .admin .admin-nav ul {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    gap: 0 0.25rem;
+  }
+  .admin .admin-nav a {
+    padding-inline: 0.6rem;
+  }
+  .admin .holders li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.15rem 0.75rem;
+  }
+  .admin .holders .link-btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-inline-start: -0.4rem;
+  }
+}

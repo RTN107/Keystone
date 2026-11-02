@@ -1,0 +1,197 @@
+/* Margin notes. Colour tokens live in styles.css; contrast is measured by scripts/contrast.mjs. */
+.answer-frame {
+  display: grid;
+  grid-template-columns: minmax(0, var(--measure)) var(--margin-w);
+  column-gap: var(--gutter);
+  align-items: start;
+  font-family: var(--font-doc);
+  color: var(--ink);
+  font-size: 1.0625rem;
+  line-height: 1.62;
+}
+.answer-frame.is-compact {
+  display: block;
+}
+/* Inline notes sit in the same column as the prose, which keeps its measure on a tablet. */
+.is-compact .answer-text {
+  max-inline-size: var(--measure);
+}
+.answer-text {
+  min-width: 0;
+}
+.block {
+  margin: 0 0 1em;
+}
+.block.list {
+  padding-inline-start: 1.4em;
+}
+.block.list li {
+  margin-block-end: 0.25em;
+  padding-inline-start: 0.2em;
+}
+
+/* The marker in the prose: a small superscript number, not a brackets pair. */
+.mark {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: var(--font-system);
+  font-size: 0.68em;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  vertical-align: 0.5em;
+  color: var(--ink);
+  /* The numeral is ink; the chip behind it is the only colour. It has no perceivable edge on the wash (1.1:1),
+     and does not need one: the ink numeral is what identifies the control (measured in contrast.mjs). */
+  background: color-mix(in srgb, var(--signal) 25%, transparent);
+  padding: 0.14em 0.3em 0.14em 0.34em;
+  margin-inline: 0.16em -0.04em 0;
+  border-radius: 0.5em;
+  position: relative;
+}
+/* The hit area is larger than the numeral: a fingertip needs about 30px. */
+.mark::after {
+  content: "";
+  position: absolute;
+  inset: -0.6em -0.3em -0.4em;
+}
+@media (pointer: coarse) {
+  .mark::after {
+    inset: -1em -0.8em -0.8em;
+  }
+}
+.mark:hover,
+.mark.is-active {
+  background: color-mix(in srgb, var(--signal) 40%, transparent);
+}
+.mark.is-pending {
+  cursor: default;
+  color: var(--ink-muted);
+  background: none;
+}
+.mark:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.margin {
+  position: relative;
+  min-width: 0;
+}
+.note {
+  position: absolute;
+  inset-inline: 0;
+  box-sizing: border-box;
+  padding-inline-start: 0.9rem;
+  border-inline-start: 2px solid var(--rule);
+  font-family: var(--font-system);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .note {
+    transition: border-color 120ms ease-out, color 120ms ease-out;
+  }
+}
+.note.is-active {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+/* A note whose paragraph went inline keeps a hidden margin twin so it can be measured. */
+.note.is-shadow {
+  visibility: hidden;
+  pointer-events: none;
+}
+/* Inline: the same note, directly under the paragraph that first cites it. */
+.note.is-inline {
+  position: static;
+  margin: -0.35rem 0 1.15rem 0.1rem;
+}
+.note-top {
+  all: unset;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  cursor: pointer;
+  padding-block: 0.1rem;
+}
+.note-top:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+@media (pointer: coarse) {
+  .note-top {
+    min-block-size: 2.75rem;
+  }
+}
+.note-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+.note-top:hover .note-doc {
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+}
+.note-n {
+  flex: none;
+  min-width: 1.15rem;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  background: color-mix(in srgb, var(--signal) 25%, transparent);
+  padding-block: 0.05rem;
+  border-radius: 0.3rem;
+}
+.note.is-active .note-n {
+  background: color-mix(in srgb, var(--signal) 40%, transparent);
+}
+.note-doc {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.note-section {
+  display: block;
+  font-style: italic;
+}
+.note-body-wrap {
+  padding-block: 0.3rem 0.1rem;
+}
+.note-body {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+  font-family: var(--font-doc);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+/* The margin fills after the prose lands. Asking is something people do many times a day, so
+   this is a plain 160ms fade that tells the eye new sources have arrived (state indication)
+   and nothing more: no travel, no stagger. The rare moment, a blocked question being
+   answered, gets its own treatment. */
+@media (prefers-reduced-motion: no-preference) {
+  .is-animated .note:not(.is-shadow) {
+    animation: note-in 160ms ease-out both;
+  }
+}
+@keyframes note-in {
+  from {
+    opacity: 0;
+  }
+}
+.glue {
+  white-space: nowrap;
+}

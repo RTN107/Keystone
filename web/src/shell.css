@@ -1,0 +1,83 @@
+.bar {
+  border-block-end: 1px solid var(--rule); /* structure: it divides the header from the page */
+  background: var(--sheet);
+  padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+}
+.bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-inline-size: var(--frame);
+  margin-inline: auto;
+  padding: 0.7rem 1.25rem;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 700;
+  text-wrap: nowrap;
+  letter-spacing: -0.005em;
+}
+.bar-who {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.875rem;
+}
+.who-name {
+  font-weight: 600;
+}
+.who-team {
+  color: var(--ink-muted);
+}
+.strip {
+  margin: 0;
+  padding: 0.5rem 1.25rem;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+  border-block-end: 1px solid var(--rule);
+}
+.shell-note {
+  max-inline-size: 28rem;
+  margin: 18vh auto 0;
+  padding-inline: 1.25rem;
+  color: var(--ink-muted);
+}
+.shell-note h1 {
+  color: var(--ink);
+  font-size: 1.25rem;
+  margin-block-end: 0.4rem;
+}
+@media (max-width: 560px) {
+  .who-team {
+    display: none;
+  }
+  .who-name {
+    max-inline-size: 7.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+
+.bar-who .link-btn {
+  flex: none;
+  white-space: nowrap;
+}
+/* At 320px the wordmark, a name and "Sign out" cannot share 280px. The stone alone still says whose
+   product this is, and the word stays available to screen readers. */
+@media (max-width: 380px) {
+  .brand-name {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

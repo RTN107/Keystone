@@ -1,0 +1,66 @@
+{
+ "question": "Who has to approve a discount above 10%?",
+ "tokens": [
+  "The Head of Sales has",
+  " to approve any discount above ",
+  "10%, and",
+  " the approval must be in writing",
+  " before the",
+  " discount is mentioned to",
+  " the client [1]. If the",
+  " discount is",
+  " above 20%, the Del",
+  "ivery Director must",
+  " also sign off, because margin",
+  " below 30% puts deliv",
+  "ery quality at risk ",
+  "[1].\n\nA few con",
+  "ditions apply. Record each",
+  " approval in the deal notes",
+  " with the approver's name and the",
+  " date [1]. An",
+  " approval covers one deal only",
+  " and expires after 30 days",
+  " if the proposal h",
+  "asn't been signed ",
+  "[1].",
+  " Discounts are",
+  " never offered in a first mee",
+  "ting [1].\n\nFor context",
+  ", discounts of 10%",
+  " or less don",
+  "'t go",
+  " to",
+  " the Head of Sales.",
+  " The account lead agrees up",
+  " to 5%, and the s",
+  "ales manager agrees over ",
+  "5% up",
+  " to 10% [2]."
+ ],
+ "done": {
+  "answer": "The Head of Sales has to approve any discount above 10%, and the approval must be in writing before the discount is mentioned to the client [1]. If the discount is above 20%, the Delivery Director must also sign off, because margin below 30% puts delivery quality at risk [1].\n\nA few conditions apply. Record each approval in the deal notes with the approver's name and the date [1]. An approval covers one deal only and expires after 30 days if the proposal hasn't been signed [1]. Discounts are never offered in a first meeting [1].\n\nFor context, discounts of 10% or less don't go to the Head of Sales. The account lead agrees up to 5%, and the sales manager agrees over 5% up to 10% [2].",
+  "citations": [
+   {
+    "n": 1,
+    "chunk_id": 12,
+    "document_id": 1,
+    "document_title": "Pricing and Proposal Playbook",
+    "passage": "## Approving larger discounts\n\nAny discount above 10% needs written approval from the Head of Sales before it is mentioned to the client. A discount above 20% also needs sign-off from the Delivery Director, because margin below 30% puts delivery quality at risk. We never offer a discount in a first meeting. Record every approval in the deal notes with the approver's name and the date. An approval covers one deal only and expires after 30 days if the proposal is not signed.",
+    "char_start": 4975,
+    "char_end": 5452
+   },
+   {
+    "n": 2,
+    "chunk_id": 13,
+    "document_id": 1,
+    "document_title": "Pricing and Proposal Playbook",
+    "passage": "## Discount authority by role\n\nWho may agree a discount within the commitment tiers, and what each person is protecting:\n| Discount | Who agrees it | Protecting |\n|---|---|---|\n| up to 5% (six month tier) | account lead | consistent pricing across clients |\n| over 5% to 10% (twelve month tier) | sales manager | the account's margin |\nAnything larger has its own rule, set out in the section on larger discounts. Every agreement is written, per deal, and kept in the deal notes.",
+    "char_start": 5454,
+    "char_end": 5933
+   }
+  ],
+  "outcome": "answered",
+  "truncated": false
+ }
+}

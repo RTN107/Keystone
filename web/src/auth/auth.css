@@ -1,0 +1,46 @@
+.auth {
+  display: grid;
+  place-items: start center;
+  min-block-size: 100vh;
+  padding: 12vh 1rem 4rem;
+}
+.auth-card {
+  inline-size: 100%;
+  max-inline-size: 24rem;
+  padding: 2rem 2rem 2.1rem;
+  border-radius: 1rem; /* past 24px of padding the layers are separate surfaces: chosen, not derived */
+  background: var(--sheet);
+  box-shadow: var(--lift);
+}
+@media (max-width: 480px) {
+  .auth {
+    padding-top: 6vh;
+  }
+  .auth-card {
+    padding-inline: 1.4rem;
+  }
+}
+.auth-mark {
+  margin-block-end: 1.1rem;
+}
+.auth h1 {
+  font-size: 1.3125rem;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+.auth-lede {
+  margin-block: 0.4rem 1.5rem;
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+  text-wrap: pretty;
+}
+.auth-error {
+  margin-block-end: 1.1rem;
+  padding-inline-start: 0.8rem;
+  border-inline-start: 2px solid var(--ochre);
+  font-size: 0.9375rem;
+}
+.auth-submit {
+  inline-size: 100%;
+  margin-block-start: 0.4rem;
+}

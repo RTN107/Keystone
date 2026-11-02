@@ -1,0 +1,372 @@
+.ask:focus {
+  outline: none;
+}
+.ask {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: var(--frame);
+  margin-inline: auto;
+  padding: 2rem 1.25rem 6rem;
+}
+.composer {
+  max-inline-size: var(--measure);
+}
+.composer-label {
+  display: block;
+  margin-block-end: 0.45rem;
+  font-size: 0.875rem;
+  font-weight: 650;
+}
+.composer-box {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.9rem;
+  border: 1px solid var(--field);
+  border-radius: 1rem; /* concentric: the button's 0.5rem + the box's 0.5rem of padding */
+  background: var(--sheet);
+}
+.composer-box:hover {
+  border-color: var(--ink);
+}
+.composer-box:focus-within {
+  /* A 2px ink ring: the 1px border plus a 1px ring, no gap. */
+  border-color: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+@media (forced-colors: active) {
+  /* Forced colours remove shadows, so the ring is an outline there. */
+  .composer-box:focus-within {
+    outline: 2px solid CanvasText;
+  }
+}
+.composer-box textarea {
+  flex: 1;
+  min-inline-size: 0;
+  resize: none;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  padding: 0.35rem 0;
+  font-size: 1rem; /* 16px: iOS Safari does not zoom the page on focus */
+  line-height: 1.6;
+  max-block-size: 8.5rem;
+}
+@media (pointer: coarse) {
+  .composer-box textarea {
+    min-block-size: 2.75rem;
+  }
+}
+.composer-box textarea:disabled {
+  cursor: not-allowed;
+}
+.hint {
+  margin-block-start: 0.5rem;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+.count {
+  margin-inline-start: 0.5rem;
+}
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+.result {
+  margin-block-start: 2.5rem;
+}
+.question {
+  max-inline-size: var(--measure);
+  margin-block-end: 1.25rem;
+  font-size: 1.3125rem;
+  line-height: 1.35;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.quiet-status {
+  max-inline-size: var(--measure);
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .quiet-status {
+    animation: fade-in 200ms 350ms ease-out both; /* a search under 350ms never flashes a message */
+  }
+}
+.quiet-status .late {
+  display: block;
+  margin-block-start: 0.25rem;
+}
+.plain-message {
+  max-inline-size: var(--measure);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.problem {
+  max-inline-size: var(--measure);
+  padding-inline-start: 0.9rem;
+  border-inline-start: 2px solid var(--ochre);
+}
+.problem p + p,
+.problem p + .btn {
+  margin-block-start: 0.6rem;
+}
+.problem-partial {
+  color: var(--ink-muted);
+  margin-block-end: 0.4rem;
+}
+.problem-partial .answer-frame {
+  display: block;
+}
+.problem-partial .margin {
+  display: none;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The waiting state: a queue the question is standing in, drawn to scale. */
+.waiting {
+  max-inline-size: var(--measure);
+  padding: 1.1rem 1.25rem 1.15rem;
+  border-radius: 0.75rem;
+  background: var(--sheet);
+  box-shadow: var(--lift);
+}
+.waiting-message {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.window {
+  margin-block-start: 1.1rem;
+}
+.window-track {
+  position: relative;
+  block-size: 6px;
+  border-radius: 3px;
+  background: var(--wash);
+  overflow: hidden;
+}
+.window-fill {
+  block-size: 100%;
+  background: var(--ink-muted);
+  border-radius: 3px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .window-fill {
+    transition: width 260ms linear;
+  }
+}
+.window-tick {
+  position: absolute;
+  inset-block: 0;
+  inline-size: 2px;
+  margin-inline-start: -1px;
+  background: var(--sheet);
+}
+.waiting-next {
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-start: 0.55rem;
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+.waiting-next b {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+@media (max-width: 719px) {
+  .ask {
+    padding-inline: 1rem;
+  }
+}
+
+/* The closed door. A blocked answer has the same geometry as an answered one: the words in the
+   main column, the sources margin on the right. The margin holds an empty slot in the shape of
+   the keystone, in place of the source that would have been there. Below 46rem the slot drops
+   under the message, as notes drop under their paragraph. */
+.slot-cq {
+  container-type: inline-size;
+}
+.slot-frame {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 1.25rem;
+  align-items: start;
+}
+.slot-frame.is-blocked {
+  grid-template-areas: "message" "slot" "action";
+}
+@container (min-width: 46rem) {
+  .slot-frame {
+    grid-template-columns: minmax(0, var(--measure)) var(--margin-w);
+    column-gap: var(--gutter);
+  }
+  /* The slot sits beside the message; the action stays under it. Narrower, the order is message, slot, action. */
+  .slot-frame.is-blocked {
+    grid-template-areas: "message slot" "action .";
+    row-gap: 0;
+  }
+}
+.is-blocked > .blocked-message {
+  grid-area: message;
+}
+.is-blocked > .slot {
+  grid-area: slot;
+}
+.is-blocked > .blocked-actions {
+  grid-area: action;
+}
+.slot-main {
+  min-width: 0;
+}
+.blocked-message {
+  max-inline-size: var(--measure);
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.blocked-message strong {
+  font-weight: 650;
+}
+.blocked-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.9rem;
+  margin-block-start: 1.1rem;
+}
+.blocked-checked {
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+.slot {
+  box-sizing: border-box;
+  min-width: 0;
+  padding-block: 0.2rem;
+  padding-inline-start: 0.9rem;
+  border-inline-start: 2px solid var(--rule);
+  font-family: var(--font-system);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+.slot {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+}
+.slot-stone {
+  flex: none;
+  display: grid;
+  place-items: center;
+}
+/* The empty slot is the seated mark, unseated. The body is a recessed socket (a light tint inside a firm edge: at
+   phone size in a compressed feed a thin outline is the first thing to disappear, and area and tone survive). The
+   sliver sits one DROP (2.4 units of the drawing) lower, in --field. Every colour here is a plain hex on purpose:
+   a keyframe from a color-mix() to a hex makes Chrome read the channels as Oklab. */
+.stone {
+  inline-size: 2.1rem;
+  block-size: 2.562rem; /* 24.4 / 20 of the width: the box is DROP taller than the seated mark's */
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+.stone-body {
+  fill: var(--socket);
+  stroke: var(--ink-muted);
+}
+.stone-sliver {
+  fill: var(--field);
+  stroke: var(--field);
+  transform: translateY(2.4px);
+}
+.slot-text {
+  display: grid;
+  gap: 0.05rem;
+  min-width: 0;
+  padding-block-start: 0.15rem;
+}
+.slot-held {
+  color: var(--ink);
+  font-weight: 600;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.slot-above {
+  margin-block-end: 0.9rem;
+}
+
+/* Completing. The margin of the answer draws the slot once more, where the first note will sit.
+   The stone fills (the shape that was empty is now holding something), then the slot gives way to
+   the note, which rises into place; later notes follow 100ms apart. This is the one moment in the
+   product that gets a choreographed entrance: it happens once per blocked question, and it is the
+   point of the product. Reduced motion skips the slot and the notes simply fade in. */
+.margin > .slot.is-completing {
+  position: absolute;
+  inset-inline: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .slot.is-completing {
+    animation: slot-give-way 520ms ease-out both;
+  }
+  .slot.is-completing .stone-body {
+    animation: stone-body-seats 240ms cubic-bezier(0.2, 0, 0, 1) both;
+  }
+  .slot.is-completing .stone-sliver {
+    animation: stone-sliver-seats 240ms cubic-bezier(0.2, 0, 0, 1) both;
+  }
+  .is-filling .note:not(.is-shadow) {
+    animation: note-rises 280ms cubic-bezier(0.2, 0, 0, 1) calc(220ms + var(--i, 0) * 100ms) both;
+  }
+}
+/* The one place full-strength electric blue appears in the product: the sliver lighting as the stone seats. */
+@keyframes stone-body-seats {
+  to {
+    fill: var(--ink);
+    stroke: var(--ink);
+  }
+}
+@keyframes stone-sliver-seats {
+  to {
+    fill: var(--signal);
+    stroke: var(--signal);
+    transform: translateY(0);
+  }
+}
+@keyframes slot-give-way {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes note-rises {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(4px);
+  }
+}
+.question:focus {
+  outline: none; /* focus is moved here to keep the place; the heading is not a control */
+}
+/* Reduced motion: no slot, no travel, no blur. The notes still fade in so the arrival is not abrupt. */
+@media (prefers-reduced-motion: reduce) {
+  .is-filling .note:not(.is-shadow) {
+    animation: note-in 160ms ease-out both;
+  }
+}
