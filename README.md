@@ -65,28 +65,28 @@ The first time you open the web app the database is empty, so it asks you to cre
 From there, with the sample teams and demo documents:
 
 1. **People.** Add one employee to each team. Leave the employee number empty and Keystone assigns the next one for that team (`SAL-001`, `DEL-001`, `HR-001`). The line that appears after you add someone tells you the number to sign in with. Passwords need at least 10 characters.
-2. **Documents.** Upload `demo-docs/pricing-and-proposal-playbook.md` for Sales & Marketing only, `demo-docs/leave-and-benefits-policy.md` for HR only and `demo-docs/delivery-and-escalation-sop.md` for Delivery only. Each is split into passages and embedded, which takes a second or two. If your embeddings account is rate limited, an upload waits and says it is working.
+2. **Documents.** Upload `demo-docs/pricing-and-proposal-playbook.md` for Sales & Marketing only, `demo-docs/leave-and-benefits-policy.md` for HR only and `demo-docs/delivery-and-escalation-sop.md` for Delivery only. Type the titles Sales and Marketing Playbook, HR Policies and Delivery Handbook in the Title field, as the screenshots do. Left empty, the title is the document's first heading. Each is split into passages and embedded, which takes a second or two. If your embeddings account is rate limited, an upload waits and says it is working.
 
 <p align="center">
   <img src="docs/images/upload-result.png" alt="The admin Documents page after uploading the Delivery document: 26 passages were embedded, and the document is listed as readable by Delivery only" width="820" />
 </p>
 
-3. **Ask.** Sign out, then sign in as the Delivery employee and ask "What discount can I offer a client who commits to a twelve month retainer?" The answer is in a Sales & Marketing document, so Keystone refuses, names the team that holds it and shows an empty keystone-shaped slot where a source would have been.
+3. **Ask.** Sign out, then sign in as the Delivery employee and ask "How many days of annual leave do I get?" The answer is in HR Policies, which only HR can read, so Keystone refuses, names the team that holds it and shows an empty keystone-shaped slot where a source would have been.
 
 <p align="center">
-  <img src="docs/images/refused.png" alt="A Delivery employee is refused: the message says the closest match is in a document that Sales & Marketing holds and Delivery cannot read, and a slot in the margin reads Held by Sales & Marketing, Not open to your team" width="820" />
+  <img src="docs/images/refused.png" alt="A Delivery employee asks how many days of annual leave they get and is refused: the message says the closest match is in a document that HR holds and Delivery cannot read, and a slot in the margin reads Held by HR, Not open to your team" width="820" />
 </p>
 
-4. **Give access.** Sign in as the admin, open the playbook's Access page, choose Delivery and confirm. The page spells out what will change before you press the button.
+4. **Give access.** Sign in as the admin, open the Access page for HR Policies, choose Delivery and confirm. The page spells out what will change before you press the button.
 
 <p align="center">
-  <img src="docs/images/access-grant.png" alt="The admin Access page for a document: a confirmation reading that Delivery can now read it, a list of the teams that can read it with their source (given at upload, or extended after), a form to give another team access, and a delete section" width="820" />
+  <img src="docs/images/access-grant.png" alt="The admin Access page for HR Policies: a confirmation reading that Delivery can now read it, and a list of the teams that can read it with their source: HR from the upload, Delivery extended after" width="820" />
 </p>
 
-5. **Ask again.** The same question, from the same employee, is now answered from the document, with numbered citations in the margin. The slot fills.
+5. **Ask again.** The same question, from the same employee, is now answered from HR Policies, with numbered citations. The slot fills.
 
 <p align="center">
-  <img src="docs/images/answered-after-grant.png" alt="The same question answered with a numbered answer, each claim carrying a citation marker, and the cited passages shown beneath it" width="820" />
+  <img src="docs/images/answered-after-grant.png" alt="The annual-leave question answered from HR Policies: a numbered answer, each claim carrying a citation marker, with the cited passages shown beneath it" width="820" />
 </p>
 
 Every citation opens the source document on the exact passage, marked within the whole document, so a reader can check the claim in context.

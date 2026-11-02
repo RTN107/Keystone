@@ -24,6 +24,6 @@ Sign in as an employee of the Delivery team and ask:
 | How many days of annual leave do I get? | Refused, naming HR, until HR Policies is made readable to Delivery |
 | What is the office Wi-Fi password? | No match. No document answers it |
 
-Then sign in as the admin, open the playbook's Access page, give Delivery access, and ask the retainer question again. This time it is answered, with citations.
+Then sign in as the admin, open the Access page for HR Policies, give Delivery access, and ask the leave question again. This time it is answered from HR Policies, with citations. The retainer question works the same way with the playbook.
 
 These results come from the default settings and the default embedding model (`voyage-4-lite`). A different embedding model scores differently, so a borderline question can land on the other side of a threshold. See "Tuning the thresholds" in the main README.
